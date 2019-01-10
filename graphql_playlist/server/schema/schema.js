@@ -1,42 +1,43 @@
 const graphql = require('graphql');
 const _ = require('lodash');
-
+const Company = require('../models/company');
+const Experience = require('../models/experience');
 const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList} = graphql;
 
 
-var companies = [
-  {name: 'Cheng & Tsui', city:'Boston, MA', id: '1'},
-  {name: 'Latin School of Chicago', city:'Chicago, IL', id: '2'},
-  {name: 'ThinkCERCA', city:'Chicago, IL', id: '3'},
-  {name: 'DMM Eikaiwa', city:'Tokyo, Japan', id: '4'},
-]
+// var companies = [
+//   {name: 'Cheng & Tsui', city:'Boston, MA', id: '1'},
+//   {name: 'Latin School of Chicago', city:'Chicago, IL', id: '2'},
+//   {name: 'ThinkCERCA', city:'Chicago, IL', id: '3'},
+//   {name: 'DMM Eikaiwa', city:'Tokyo, Japan', id: '4'},
+// ]
 
-var experiences = [
-  {
-    position: 'Project Developer and Manager', 
-    startDate: '2014/07/01',
-    id: "1",
-    companyId: "1"
-  },
-  {
-    position: 'Teacher', 
-    startDate: '2016/08/01',
-    id: "2",
-    companyId: "2"
-  },
-  {
-    position: 'Software Engineer', 
-    startDate: '2017/12/10',
-    id: "3",
-    companyId: "4"
-  },
-  {
-    position: 'Data Analyst', 
-    startDate: '2017/06/15',
-    id: "4",
-    companyId: "4"
-  }
-]
+// var experiences = [
+//   {
+//     position: 'Project Developer and Manager', 
+//     startDate: '2014/07/01',
+//     id: "1",
+//     companyId: "1"
+//   },
+//   {
+//     position: 'Teacher', 
+//     startDate: '2016/08/01',
+//     id: "2",
+//     companyId: "2"
+//   },
+//   {
+//     position: 'Software Engineer', 
+//     startDate: '2017/12/10',
+//     id: "3",
+//     companyId: "4"
+//   },
+//   {
+//     position: 'Data Analyst', 
+//     startDate: '2017/06/15',
+//     id: "4",
+//     companyId: "4"
+//   }
+// ]
 
 const CompanyType = new GraphQLObjectType({
   name: 'Company',
@@ -47,7 +48,7 @@ const CompanyType = new GraphQLObjectType({
     experiences: {
       type: new GraphQLList(ExperienceType),
       resolve(parent, args){
-        return _.filter(experiences, {companyId: parent.id})
+        //return _.filter(experiences, {companyId: parent.id})
       }
     }
   })
@@ -62,7 +63,7 @@ const ExperienceType = new GraphQLObjectType({
     company: {
       type: CompanyType,
       resolve(parent, args){
-        return _.find(companies, {id: parent.companyId})
+        //return _.find(companies, {id: parent.companyId})
       }
     }
   })
@@ -75,31 +76,52 @@ const RootQuery = new GraphQLObjectType({
       type: CompanyType,
       args: {id: {type: GraphQLID}},
       resolve(parent, args){
-        return _.find(companies, {id: args.id})
+        //return _.find(companies, {id: args.id})
       }
     },
     experience: {
       type: ExperienceType,
       args: {id: {type: GraphQLID}},
       resolve(parent, args){
-        return _.find(experiences, {id: args.id})
+        //return _.find(experiences, {id: args.id})
       }
     },
     companies:{
       type: new GraphQLList(CompanyType),
       resolve(parent, args){
-        return companies
+        //return companies
       }
     },
     experiences:{
       type: new GraphQLList(ExperienceType),
       resolve(parent, args){
-        return experiences
+        //return experiences
+      }
+    }
+  }
+})
+
+const Mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addCompany:{
+      type: CompanyType,
+      args: {
+        name: {type:GraphQLString},
+        city: {type: GraphQLString}
+      },
+      resolve(parent, args){
+        let company = new Company({
+          name: args.name,
+          city: args.city
+        });
+        return company.save()
       }
     }
   }
 })
 
 module.exports = new GraphQLSchema({
-  query: RootQuery 
+  query: RootQuery,
+  mutation: Mutation
 })
