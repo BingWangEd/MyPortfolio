@@ -2,42 +2,7 @@ const graphql = require('graphql');
 const _ = require('lodash');
 const Company = require('../models/company');
 const Experience = require('../models/experience');
-const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList} = graphql;
-
-
-// var companies = [
-//   {name: 'Cheng & Tsui', city:'Boston, MA', id: '1'},
-//   {name: 'Latin School of Chicago', city:'Chicago, IL', id: '2'},
-//   {name: 'ThinkCERCA', city:'Chicago, IL', id: '3'},
-//   {name: 'DMM Eikaiwa', city:'Tokyo, Japan', id: '4'},
-// ]
-
-// var experiences = [
-//   {
-//     position: 'Project Developer and Manager', 
-//     startDate: '2014/07/01',
-//     id: "1",
-//     companyId: "1"
-//   },
-//   {
-//     position: 'Teacher', 
-//     startDate: '2016/08/01',
-//     id: "2",
-//     companyId: "2"
-//   },
-//   {
-//     position: 'Software Engineer', 
-//     startDate: '2017/12/10',
-//     id: "3",
-//     companyId: "4"
-//   },
-//   {
-//     position: 'Data Analyst', 
-//     startDate: '2017/06/15',
-//     id: "4",
-//     companyId: "4"
-//   }
-// ]
+const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList, GraphQLNonNull} = graphql;
 
 const CompanyType = new GraphQLObjectType({
   name: 'Company',
@@ -49,6 +14,7 @@ const CompanyType = new GraphQLObjectType({
       type: new GraphQLList(ExperienceType),
       resolve(parent, args){
         //return _.filter(experiences, {companyId: parent.id})
+        return Experience.find({companyId: parent.id})
       }
     }
   })
@@ -64,6 +30,7 @@ const ExperienceType = new GraphQLObjectType({
       type: CompanyType,
       resolve(parent, args){
         //return _.find(companies, {id: parent.companyId})
+        return Company.findById(parent.companyId)
       }
     }
   })
@@ -77,6 +44,7 @@ const RootQuery = new GraphQLObjectType({
       args: {id: {type: GraphQLID}},
       resolve(parent, args){
         //return _.find(companies, {id: args.id})
+        return Company.findById(args.id);
       }
     },
     experience: {
@@ -84,18 +52,21 @@ const RootQuery = new GraphQLObjectType({
       args: {id: {type: GraphQLID}},
       resolve(parent, args){
         //return _.find(experiences, {id: args.id})
+        return Experience.findById(args.id);
       }
     },
     companies:{
       type: new GraphQLList(CompanyType),
       resolve(parent, args){
         //return companies
+        return Company.find({})
       }
     },
     experiences:{
       type: new GraphQLList(ExperienceType),
       resolve(parent, args){
         //return experiences
+        return Experience.find({})
       }
     }
   }
@@ -107,8 +78,8 @@ const Mutation = new GraphQLObjectType({
     addCompany:{
       type: CompanyType,
       args: {
-        name: {type:GraphQLString},
-        city: {type: GraphQLString}
+        name: {type: GraphQLNonNull(GraphQLString)},
+        city: {type: GraphQLNonNull(GraphQLString)}
       },
       resolve(parent, args){
         let company = new Company({
@@ -116,6 +87,22 @@ const Mutation = new GraphQLObjectType({
           city: args.city
         });
         return company.save()
+      }
+    },
+    addExperience:{
+      type: ExperienceType,
+      args: {
+        position: {type: new GraphQLNonNull(GraphQLString)},
+        startDate: {type: new GraphQLNonNull(GraphQLString) },
+        companyId: {type: new GraphQLNonNull(GraphQLID)}
+      },
+      resolve(parent, args){
+        let experience = new Experience({
+          position: args.position,
+          startDate: args.startDate,
+          companyId: args.companyId
+        });
+        return experience.save()
       }
     }
   }
