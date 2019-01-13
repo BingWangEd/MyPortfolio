@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {connect} from 'react-redux';
+import Radium, {StyleRoot} from 'radium';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import ExperienceList from './containers/ExperienceList';
+
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      
+        <StyleRoot>
+          <div className="App">
+            <h1>My Portfolio</h1>
+            <ExperienceList /> 
+          </div>
+        </StyleRoot>
+
     );
   }
 }
 
-export default App;
+function mapStateToProps(state){
+  return state
+}
+
+export default withRouter(connect(
+  mapStateToProps
+)(Radium(App)))
