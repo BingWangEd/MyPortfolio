@@ -7,20 +7,33 @@ const getExperiencesQuery=gql`
 {
   experiences{
     position,
+    startDate
     company{
       name
-    }
+    },
+    id
   }
 }
 `
 
 class ExperienceList extends Component {
+  
+  displayExperiences = () =>{
+    var data = this.props.data;
+    if (data.loading){
+      return (<div>Loading Experiences ...</div>);
+    } else {
+      return data.experiences.map(experience=>{
+        return (<li key={experience.id}>{experience.position}; {experience.company.name}</li>)
+      })
+    }
+  }
   render(){
     console.log(this.props)
     return (
         <div>
           <h2>Experience List</h2>
-          <ul></ul>
+          <ul>{this.displayExperiences()}</ul>
         </div>
     )
   }
@@ -30,16 +43,6 @@ function mapStateToProps(state){
   return state
 }
 
-const mapQueriesToProps = ({ props, state }) => {
-  return {
-    data: {
-      query: getExperiencesQuery
-    }
-  }
-}
-
-// export default connect(
-//   mapStateToProps
-// )(ExperienceList)
-
-export default graphql(getExperiencesQuery)(ExperienceList)
+export default connect(
+  mapStateToProps
+)(graphql(getExperiencesQuery)(ExperienceList))

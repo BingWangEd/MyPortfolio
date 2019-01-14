@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Radium, {StyleRoot} from 'radium';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import ExperienceList from './containers/ExperienceList';
-
+import AddExperience from './containers/AddExperience';
 
 
 class App extends Component {
@@ -13,7 +13,8 @@ class App extends Component {
         <StyleRoot>
           <div className="App">
             <h1>My Portfolio</h1>
-            <ExperienceList /> 
+            <ExperienceList />
+            <AddExperience /> 
           </div>
         </StyleRoot>
 
