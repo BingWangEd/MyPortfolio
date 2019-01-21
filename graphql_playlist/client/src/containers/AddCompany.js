@@ -2,17 +2,18 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {graphql, compose} from 'react-apollo';
 import {getCompaniesQuery, getExperiencesQuery, addCompanyMutation} from '../queries/queries';
-import {updateCompanyName, updateCompanyCity} from '../actions/index';
+import {updateCompanyName, updateCompanyCity, selectCompany} from '../actions/index';
+import ProjectDetails from './ProjectDetails';
 
 class AddCompany extends Component {
   submitForm = (e) => {
-    console.log('addCompanyMutation')
     e.preventDefault();
     this.props.addCompanyMutation({
       variables: {
         name: this.props.companyName,
         city: this.props.companyCity
-      }
+      },
+      refetchQueries: [{query: getCompaniesQuery}]
     });
   }
 
@@ -22,7 +23,7 @@ class AddCompany extends Component {
       return (<h3>Loading companies</h3>)
     } else {
       return data.companies.map(company=>{
-        return (<div key={company.id}>{company.name}, {company.city}</div>)
+        return (<div key={company.id} onClick={(e)=>{e.preventDefault(); this.props.selectCompany(company.id);}}>{company.name}, {company.city}</div>)
       })
     }
   }
@@ -54,7 +55,7 @@ function mapStateToProps(state){
 export default compose(
   connect(
     mapStateToProps,
-    {updateCompanyName, updateCompanyCity}
+    {updateCompanyName, updateCompanyCity, selectCompany}
   ),
   graphql(getCompaniesQuery, {name: "getCompaniesQuery"}),
   graphql(addCompanyMutation, {name: "addCompanyMutation"})

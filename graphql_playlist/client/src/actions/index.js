@@ -18,3 +18,10 @@ export const updateCompanyCity = (city) => {
     city
   }
 }
+
+export const selectCompany = (selectedCompanyId) => {
+  return {
+    type: 'SELECT_COMPANY',
+    selectedCompanyId
+  }
+}

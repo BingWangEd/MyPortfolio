@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom';
 import ExperienceList from './containers/ExperienceList';
 import AddCompany from './containers/AddCompany';
 import SearchExperience from './containers/SearchExperience';
+import ProjectDetails from './containers/ProjectDetails';
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
             <h1>My Portfolio</h1>
             <ExperienceList />
             <AddCompany />
+            <ProjectDetails />
             <SearchExperience />
           </div>
         </StyleRoot>

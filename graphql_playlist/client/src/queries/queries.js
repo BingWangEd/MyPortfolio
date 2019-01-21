@@ -23,6 +23,21 @@ const getExperiencesQuery=gql`
 }
 `
 
+const getCompanyQuery=gql`
+  query($id: ID){
+    company(id: $id){
+      id,
+      name,
+      city,
+      experiences{
+        id,
+        position,
+        startDate
+      }
+    }
+  }
+`
+
 const addCompanyMutation=gql`
   mutation($name: String!, $city:String!){
     addCompany(name:$name, city:$city){
@@ -42,4 +57,7 @@ const addExperienceMutation=gql`
   }
 `
 
-export {getCompaniesQuery, getExperiencesQuery, addCompanyMutation, addExperienceMutation};
+export {getCompaniesQuery, getExperiencesQuery, getCompanyQuery, addCompanyMutation, addExperienceMutation};
+
+
+
