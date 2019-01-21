@@ -1,33 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {gql} from 'apollo-boost';
 import {graphql} from 'react-apollo';
+import {getCompaniesQuery} from '../queries/queries';
+import {updateCompany} from '../actions/index';
 
-const getCompaniesQuery=gql`
-{
-  companies{
-    name,
-    city,
-    id
-  }
-}
-`
-
-class AddExperience extends Component {
-
+class SearchExperience extends Component {
   displayCompanies = () =>{
     var data = this.props.data;
     if (data.loading){
       return (<div>Loading Companies ...</div>);
     } else {
       return data.companies.map(company=>{
-        return (<div key={company.id}><input type="checkbox" value={company.name} name={company.name} />{company.name}</div>)
+        return (<div key={company.id}><input type="checkbox" value={company.name} name={company.name} onClick={(e)=>this.props.updateCompany(company.name)}/>{company.name}</div>)
       })
     }
   }
 
   render(){
-    console.log(this.props)
     return (
         <div>
           <form>
@@ -43,5 +32,6 @@ function mapStateToProps(state){
 }
 
 export default connect(
-  mapStateToProps
-)(graphql(getCompaniesQuery)(AddExperience))
+  mapStateToProps,
+  {updateCompany}
+)(graphql(getCompaniesQuery)(SearchExperience))

@@ -1,20 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {gql} from 'apollo-boost';
 import {graphql} from 'react-apollo';
-
-const getExperiencesQuery=gql`
-{
-  experiences{
-    position,
-    startDate
-    company{
-      name
-    },
-    id
-  }
-}
-`
+import {getExperiencesQuery} from '../queries/queries';
 
 class ExperienceList extends Component {
   
@@ -28,8 +15,8 @@ class ExperienceList extends Component {
       })
     }
   }
+  
   render(){
-    console.log(this.props)
     return (
         <div>
           <h2>Experience List</h2>

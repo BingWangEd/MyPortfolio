@@ -62,6 +62,13 @@ const RootQuery = new GraphQLObjectType({
         return Company.find({})
       }
     },
+    companyByName: {
+      type: CompanyType,
+      args: {name: {type:GraphQLString}},
+      resolve(parent, args){
+        return Company.find({name: args.name})
+      }
+    },
     experiences:{
       type: new GraphQLList(ExperienceType),
       resolve(parent, args){

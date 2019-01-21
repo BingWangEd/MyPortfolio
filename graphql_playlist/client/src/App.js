@@ -3,18 +3,18 @@ import {connect} from 'react-redux';
 import Radium, {StyleRoot} from 'radium';
 import {withRouter} from 'react-router-dom';
 import ExperienceList from './containers/ExperienceList';
-import AddExperience from './containers/AddExperience';
-
+import AddCompany from './containers/AddCompany';
+import SearchExperience from './containers/SearchExperience';
 
 class App extends Component {
   render() {
     return (
-      
         <StyleRoot>
           <div className="App">
             <h1>My Portfolio</h1>
             <ExperienceList />
-            <AddExperience /> 
+            <AddCompany />
+            <SearchExperience />
           </div>
         </StyleRoot>
 

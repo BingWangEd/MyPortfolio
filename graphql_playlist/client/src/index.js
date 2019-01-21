@@ -17,7 +17,7 @@ const client = new ApolloClient({
 })
 
 export const initialState = {
-  state: null
+  company: null
 }
 
 const store = createStore(
