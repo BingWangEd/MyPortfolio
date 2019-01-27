@@ -2,7 +2,23 @@ const graphql = require('graphql');
 const _ = require('lodash');
 const Company = require('../models/company');
 const Experience = require('../models/experience');
-const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList, GraphQLNonNull} = graphql;
+const Education = require('../models/education');
+const School = require('../models/school');
+const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLEnumType} = graphql;
+
+const ExperienceCategoryEnumType = new GraphQLEnumType({
+  name: 'ExperienceCategoryEnum',
+  values: {
+    "TEACHING": {value: "Teaching"},
+    "CURRICULUM_DESIGN": {value: "Curriculum Desgin"},
+    "WRITING": {value: "Writing"},
+    "SOFTWARE_DEVELOPMENT": {value: "Software Development"},
+    "DATA_ANALYSIS": {value: "Data Analysis"},
+    "PROJECT_MANAGEMENT": {value: "Project Management"},
+    "CREATIVE": {value: "Creative"},
+    "FUN": {value: "Fun"}
+  }
+});
 
 const CompanyType = new GraphQLObjectType({
   name: 'Company',
@@ -10,6 +26,8 @@ const CompanyType = new GraphQLObjectType({
     id: {type: GraphQLID},
     name: {type: GraphQLString},
     city: {type: GraphQLString},
+    description: {type: GraphQLString},
+    link: {type: GraphQLString},
     experiences: {
       type: new GraphQLList(ExperienceType),
       resolve(parent, args){
@@ -26,11 +44,44 @@ const ExperienceType = new GraphQLObjectType({
     id: {type: GraphQLID},
     position: {type: GraphQLString},
     startDate: {type: GraphQLString},
+    endDate: {type: GraphQLString},
+    category: {type: ExperienceCategoryEnum},
     company: {
       type: CompanyType,
       resolve(parent, args){
         //return _.find(companies, {id: parent.companyId})
         return Company.findById(parent.companyId)
+      }
+    }
+  })
+});
+
+const SchoolType = new GraphQLObjectType({
+  name: 'School',
+  fields: ()=>({
+    name: {type: GraphQLString},
+    city: {type: GraphQLString},
+    educations: {
+      type: new GraphQLList(EducationType),
+      resolve(parent, args){
+        //return _.filter(experiences, {companyId: parent.id})
+        return Education.find({schoolId: parent.id})
+      }
+    }
+  })
+});
+
+const EducationType = new GraphQLObjectType({
+  name: 'Education',
+  fields: ()=>({
+    id: {type: GraphQLID},
+    degree: {type: GraphQLString},
+    startDate: {type: GraphQLString},
+    endDate: {type: GraphQLString},
+    school: {
+      type: SchoolType,
+      resolve(parent, args){
+        return School.findById(parent.schoolId)
       }
     }
   })
@@ -55,6 +106,22 @@ const RootQuery = new GraphQLObjectType({
         return Experience.findById(args.id);
       }
     },
+    school: {
+      type: SchoolType,
+      args: {id: {type: GraphQLID}},
+      resolve(parent, args){
+        //return _.find(companies, {id: args.id})
+        return School.findById(args.id);
+      }
+    },
+    education: {
+      type: EducationType,
+      args: {id: {type: GraphQLID}},
+      resolve(parent, args){
+        //return _.find(companies, {id: args.id})
+        return Education.findById(args.id);
+      }
+    },
     companies:{
       type: new GraphQLList(CompanyType),
       resolve(parent, args){
@@ -62,18 +129,32 @@ const RootQuery = new GraphQLObjectType({
         return Company.find({})
       }
     },
-    companyByName: {
-      type: CompanyType,
-      args: {name: {type:GraphQLString}},
-      resolve(parent, args){
-        return Company.find({name: args.name})
-      }
-    },
     experiences:{
       type: new GraphQLList(ExperienceType),
       resolve(parent, args){
         //return experiences
         return Experience.find({})
+      }
+    },
+    schools:{
+      type: new GraphQLList(SchoolType),
+      resolve(parent, args){
+        //return experiences
+        return School.find({})
+      }
+    },
+    educations:{
+      type: new GraphQLList(EducationType),
+      resolve(parent, args){
+        //return experiences
+        return Education.find({})
+      }
+    },
+    companyByName: {
+      type: CompanyType,
+      args: {name: {type:GraphQLString}},
+      resolve(parent, args){
+        return Company.find({name: args.name})
       }
     }
   }
@@ -86,12 +167,16 @@ const Mutation = new GraphQLObjectType({
       type: CompanyType,
       args: {
         name: {type: GraphQLNonNull(GraphQLString)},
-        city: {type: GraphQLNonNull(GraphQLString)}
+        city: {type: GraphQLNonNull(GraphQLString)},
+        description: {type: GraphQLNonNull(GraphQLString)},
+        link: {type: GraphQLNonNull(GraphQLString)}
       },
       resolve(parent, args){
         let company = new Company({
           name: args.name,
-          city: args.city
+          city: args.city,
+          description: args.description,
+          link: args.link
         });
         return company.save()
       }
@@ -100,18 +185,62 @@ const Mutation = new GraphQLObjectType({
       type: ExperienceType,
       args: {
         position: {type: new GraphQLNonNull(GraphQLString)},
-        startDate: {type: new GraphQLNonNull(GraphQLString) },
-        companyId: {type: new GraphQLNonNull(GraphQLID)}
+        startDate: {type: new GraphQLNonNull(GraphQLString)},
+        endDate: {type: new GraphQLNonNull(GraphQLString)},
+        companyId: {type: new GraphQLNonNull(GraphQLID)},
+        category: {type: new GraphQLNonNull(GraphQLID)}
       },
       resolve(parent, args){
         let experience = new Experience({
           position: args.position,
           startDate: args.startDate,
-          companyId: args.companyId
+          endDate: args.endDate,
+          companyId: args.companyId,
+          category: args.category
         });
         return experience.save()
       }
-    }
+    },
+    // addExperience:{
+    //   type: ExperienceType,
+    //   args: {
+    //     position: {type: new GraphQLNonNull(GraphQLString)},
+    //     startDate: {type: new GraphQLNonNull(GraphQLString)},
+    //     endDate: {type: new GraphQLNonNull(GraphQLString)},
+    //     companyId: {type: new GraphQLNonNull(GraphQLID)},
+    //     category: {type: new GraphQLNonNull(GraphQLID)}
+    //   },
+    //   resolve(parent, args){
+    //     let experience = new Experience({
+    //       position: args.position,
+    //       startDate: args.startDate,
+    //       endDate: args.endDate,
+    //       companyId: args.companyId,
+    //       category: args.category
+    //     });
+    //     return experience.save()
+    //   }
+    // },
+    // addExperience:{
+    //   type: ExperienceType,
+    //   args: {
+    //     position: {type: new GraphQLNonNull(GraphQLString)},
+    //     startDate: {type: new GraphQLNonNull(GraphQLString)},
+    //     endDate: {type: new GraphQLNonNull(GraphQLString)},
+    //     companyId: {type: new GraphQLNonNull(GraphQLID)},
+    //     category: {type: new GraphQLNonNull(GraphQLID)}
+    //   },
+    //   resolve(parent, args){
+    //     let experience = new Experience({
+    //       position: args.position,
+    //       startDate: args.startDate,
+    //       endDate: args.endDate,
+    //       companyId: args.companyId,
+    //       category: args.category
+    //     });
+    //     return experience.save()
+    //   }
+    // }
   }
 })
 
