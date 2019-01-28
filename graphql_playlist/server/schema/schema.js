@@ -4,6 +4,7 @@ const Company = require('../models/company');
 const Experience = require('../models/experience');
 const Education = require('../models/education');
 const School = require('../models/school');
+const Skill = require('../models/skill');
 const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLEnumType} = graphql;
 
 const ExperienceCategoryEnumType = new GraphQLEnumType({
@@ -45,12 +46,33 @@ const ExperienceType = new GraphQLObjectType({
     position: {type: GraphQLString},
     startDate: {type: GraphQLString},
     endDate: {type: GraphQLString},
-    category: {type: ExperienceCategoryEnum},
+    category: {type: ExperienceCategoryEnumType},
     company: {
       type: CompanyType,
       resolve(parent, args){
         //return _.find(companies, {id: parent.companyId})
         return Company.findById(parent.companyId)
+      }
+    },
+    skills: {
+      type: new GraphQLList(SkillType),
+      resolve(parent, args){
+        //return _.filter(experiences, {companyId: parent.id})
+        return Skill.find({experienceId: parent.id})
+      }
+    }
+  })
+});
+
+const SkillType = new GraphQLObjectType({
+  name: 'Skill',
+  fields: ()=>({
+    summary: {type: GraphQLID},
+    detail: {type: GraphQLString},
+    experience: {
+      type: ExperienceType,
+      resolve(parent, args){
+        return Experience.findById(parent.experienceId)
       }
     }
   })
@@ -59,6 +81,7 @@ const ExperienceType = new GraphQLObjectType({
 const SchoolType = new GraphQLObjectType({
   name: 'School',
   fields: ()=>({
+    id: {type: GraphQLID},
     name: {type: GraphQLString},
     city: {type: GraphQLString},
     educations: {
@@ -122,6 +145,14 @@ const RootQuery = new GraphQLObjectType({
         return Education.findById(args.id);
       }
     },
+    skill: {
+      type: SkillType,
+      args: {id: {type: GraphQLID}},
+      resolve(parent, args){
+        //return _.find(companies, {id: args.id})
+        return Skill.findById(args.id);
+      }
+    },
     companies:{
       type: new GraphQLList(CompanyType),
       resolve(parent, args){
@@ -148,6 +179,13 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args){
         //return experiences
         return Education.find({})
+      }
+    },
+    skills:{
+      type: new GraphQLList(SkillType),
+      resolve(parent, args){
+        //return experiences
+        return Skill.find({})
       }
     },
     companyByName: {
@@ -201,46 +239,54 @@ const Mutation = new GraphQLObjectType({
         return experience.save()
       }
     },
-    // addExperience:{
-    //   type: ExperienceType,
-    //   args: {
-    //     position: {type: new GraphQLNonNull(GraphQLString)},
-    //     startDate: {type: new GraphQLNonNull(GraphQLString)},
-    //     endDate: {type: new GraphQLNonNull(GraphQLString)},
-    //     companyId: {type: new GraphQLNonNull(GraphQLID)},
-    //     category: {type: new GraphQLNonNull(GraphQLID)}
-    //   },
-    //   resolve(parent, args){
-    //     let experience = new Experience({
-    //       position: args.position,
-    //       startDate: args.startDate,
-    //       endDate: args.endDate,
-    //       companyId: args.companyId,
-    //       category: args.category
-    //     });
-    //     return experience.save()
-    //   }
-    // },
-    // addExperience:{
-    //   type: ExperienceType,
-    //   args: {
-    //     position: {type: new GraphQLNonNull(GraphQLString)},
-    //     startDate: {type: new GraphQLNonNull(GraphQLString)},
-    //     endDate: {type: new GraphQLNonNull(GraphQLString)},
-    //     companyId: {type: new GraphQLNonNull(GraphQLID)},
-    //     category: {type: new GraphQLNonNull(GraphQLID)}
-    //   },
-    //   resolve(parent, args){
-    //     let experience = new Experience({
-    //       position: args.position,
-    //       startDate: args.startDate,
-    //       endDate: args.endDate,
-    //       companyId: args.companyId,
-    //       category: args.category
-    //     });
-    //     return experience.save()
-    //   }
-    // }
+    addSchool:{
+      type: SchoolType,
+      args: {
+        name: {type: new GraphQLNonNull(GraphQLString)},
+        city: {type: new GraphQLNonNull(GraphQLString)}
+      },
+      resolve(parent, args){
+        let school = new School({
+          school: args.school,
+          city: args.city
+        });
+        return school.save()
+      }
+    },
+    addEducation:{
+      type: EducationType,
+      args: {
+        degree: {type: new GraphQLNonNull(GraphQLString)},
+        startDate: {type: new GraphQLNonNull(GraphQLString)},
+        endDate: {type: new GraphQLNonNull(GraphQLString)},
+        schoolId: {type: new GraphQLNonNull(GraphQLID)}
+      },
+      resolve(parent, args){
+        let experience = new Experience({
+          position: args.position,
+          startDate: args.startDate,
+          endDate: args.endDate,
+          schoolId: args.schoolId
+        });
+        return experience.save()
+      }
+    },
+    addSkill:{
+      type: SkillType,
+      args: {
+        summary: {type: new GraphQLNonNull(GraphQLString)},
+        detail: {type: new GraphQLNonNull(GraphQLString)},
+        experienceId: {type: new GraphQLNonNull(GraphQLID)}
+      },
+      resolve(parent, args){
+        let skill = new Skill({
+          summary: args.summary,
+          detail: args.detail,
+          experienceId: args.experienceId
+        });
+        return skill.save()
+      }
+    }
   }
 })
 
