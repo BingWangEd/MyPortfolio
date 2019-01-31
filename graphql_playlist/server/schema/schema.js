@@ -60,6 +60,14 @@ const ExperienceType = new GraphQLObjectType({
         //return _.filter(experiences, {companyId: parent.id})
         return Skill.find({experienceId: parent.id})
       }
+    },
+    allCategories: {
+      type: new GraphQLList(GraphQLString),
+      resolve(parent, args){
+        return ExperienceCategoryEnumType._values.map(e => {
+          return e.value
+        })
+      }
     }
   })
 });
@@ -222,11 +230,11 @@ const Mutation = new GraphQLObjectType({
     addExperience:{
       type: ExperienceType,
       args: {
-        position: {type: new GraphQLNonNull(GraphQLString)},
-        startDate: {type: new GraphQLNonNull(GraphQLString)},
-        endDate: {type: new GraphQLNonNull(GraphQLString)},
-        companyId: {type: new GraphQLNonNull(GraphQLID)},
-        category: {type: new GraphQLNonNull(GraphQLID)}
+        position: {type: GraphQLNonNull(GraphQLString)},
+        startDate: {type: GraphQLNonNull(GraphQLString)},
+        endDate: {type: GraphQLNonNull(GraphQLString)},
+        companyId: {type: GraphQLNonNull(GraphQLID)},
+        category: {type: GraphQLNonNull(GraphQLID)}
       },
       resolve(parent, args){
         let experience = new Experience({
@@ -242,12 +250,12 @@ const Mutation = new GraphQLObjectType({
     addSchool:{
       type: SchoolType,
       args: {
-        name: {type: new GraphQLNonNull(GraphQLString)},
-        city: {type: new GraphQLNonNull(GraphQLString)}
+        name: {type: GraphQLNonNull(GraphQLString)},
+        city: {type: GraphQLNonNull(GraphQLString)}
       },
       resolve(parent, args){
         let school = new School({
-          school: args.school,
+          name: args.name,
           city: args.city
         });
         return school.save()
@@ -256,27 +264,27 @@ const Mutation = new GraphQLObjectType({
     addEducation:{
       type: EducationType,
       args: {
-        degree: {type: new GraphQLNonNull(GraphQLString)},
-        startDate: {type: new GraphQLNonNull(GraphQLString)},
-        endDate: {type: new GraphQLNonNull(GraphQLString)},
-        schoolId: {type: new GraphQLNonNull(GraphQLID)}
+        degree: {type: GraphQLNonNull(GraphQLString)},
+        startDate: {type: GraphQLNonNull(GraphQLString)},
+        endDate: {type: GraphQLNonNull(GraphQLString)},
+        schoolId: {type: GraphQLNonNull(GraphQLID)}
       },
       resolve(parent, args){
-        let experience = new Experience({
+        let education = new Education({
           position: args.position,
           startDate: args.startDate,
           endDate: args.endDate,
           schoolId: args.schoolId
         });
-        return experience.save()
+        return education.save()
       }
     },
     addSkill:{
       type: SkillType,
       args: {
-        summary: {type: new GraphQLNonNull(GraphQLString)},
-        detail: {type: new GraphQLNonNull(GraphQLString)},
-        experienceId: {type: new GraphQLNonNull(GraphQLID)}
+        summary: {type: GraphQLNonNull(GraphQLString)},
+        detail: {type: GraphQLNonNull(GraphQLString)},
+        experienceId: {type: GraphQLNonNull(GraphQLID)}
       },
       resolve(parent, args){
         let skill = new Skill({
@@ -285,6 +293,22 @@ const Mutation = new GraphQLObjectType({
           experienceId: args.experienceId
         });
         return skill.save()
+      }
+    },
+    updateSkill: {
+      type: SkillType,
+      args: {
+        id: {type: new GraphQLNonNull(GraphQLID)},
+        summary: {type: GraphQLString},
+        detail: {type: GraphQLString},
+        experienceId: {type: GraphQLID}
+      },
+      resolve(parent, args){
+        const skill = Skill.findByIdAndUpdate(args.id, args);
+        if (!skill) {
+          throw new Error('Skill not found by updateSkill.')
+        }
+        return skill;
       }
     }
   }

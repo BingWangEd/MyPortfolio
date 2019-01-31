@@ -12,11 +12,7 @@ class App extends Component {
     return (
         <StyleRoot>
           <div className="App">
-            <h1>My Portfolio</h1>
-            <ExperienceList />
-            <AddCompany />
-            <ProjectDetails />
-            <SearchExperience />
+            
           </div>
         </StyleRoot>
 
