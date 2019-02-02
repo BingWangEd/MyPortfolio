@@ -9,12 +9,20 @@ import ProjectDetails from './containers/ProjectDetails';
 
 import NavBarContainer from './containers/NavBar/NavBarContainer';
 
+const styles = {
+  center: {
+    backgroundColor: 'gray'
+  }
+};
+
 class App extends Component {
   render() {
     return (
         <StyleRoot>
           <div className="App">
-            <NavBarContainer />
+            <div style={[styles.center]}>
+              <NavBarContainer />
+            </div>
           </div>
         </StyleRoot>
 

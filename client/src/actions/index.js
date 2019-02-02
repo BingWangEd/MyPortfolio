@@ -32,3 +32,37 @@ export const selectExperienceCategory = (selectedExperienceCategory) => {
     selectedExperienceCategory
   }
 }
+
+export const unselectExperienceCategory = (unselectedExperienceCategory) => {
+  return {
+    type: 'UNSELECT_EXPERIENCE_CATEGORY',
+    unselectedExperienceCategory
+  }
+}
+
+export const selectAllExperienceCategories = (experienceCategories) => {
+  return {
+    type: 'SELECT_ALL_EXPERIENCE_CATEGORIES',
+    experienceCategories
+  }
+}
+
+export const unselectAllExperienceCategories = () => {
+  return {
+    type: 'UNSELECT_ALL_EXPERIENCE_CATEGORIES'
+  }
+}
+
+export const selectFunMode = () => {
+  return {
+    type: 'SELECT_FUN_MODE',
+    ifSelectFunMode: true
+  }
+}
+
+export const unselectFunMode = () => {
+  return {
+    type: 'UNSELECT_FUN_MODE',
+    ifSelectFunMode: false
+  }
+}

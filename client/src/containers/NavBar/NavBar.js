@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Radium from 'radium';
-import NavBarList from './NavBarList'
+import NavBarItem from './NavBarItem';
+
+import ExperienceButton from './ExperienceButton';
+import FunButton from './FunButton';
 
 class NavBar extends Component {
   render(){
@@ -9,9 +12,23 @@ class NavBar extends Component {
       return (<div>Data Is Loading ...</div>)
     } else {
       return (
-        this.props.categories.map((category, index)=>{
-          return (<NavBarList key={index} category = {category} selectExperienceCategory={this.props.selectExperienceCategory}/>)
-        })
+        <div>
+        <ExperienceButton 
+          categories = {this.props.categories}
+          selectAllExperienceCategories = {this.props.selectAllExperienceCategories}
+          unselectAllExperienceCategories = {this.props.unselectAllExperienceCategories}
+        />
+        {this.props.categories.map((category, index)=>{
+          return (
+            <NavBarItem 
+              key={index} 
+              category = {category} 
+              selectExperienceCategory={this.props.selectExperienceCategory} 
+              unselectExperienceCategory={this.props.unselectExperienceCategory}
+           />)
+        })}
+        <FunButton />
+        </div>
       )
     }
   }
