@@ -4,16 +4,16 @@ import Radium from 'radium';
 
 class FunButton extends Component {
   render(){
-    if (this.props.selectedExperienceCategory.includes(this.props.category)) {
+    if (this.props.funMode) {
       return (<div><img onClick={(e)=>{this.props.unselectFunMode();}} src = {process.env.PUBLIC_URL+ 'icons/checked_checkbox.png'} alt='checked_checkbox'/>Show Me Something Fun!</div>)
     } else {
       return (<div><img 
           onClick={(e)=>{
-            this.props.unselectFunMode();
+            this.props.selectFunMode();
             this.props.unselectAllExperienceCategories();
           }}
-          src = {process.env.PUBLIC_URL+ 'icons/checked_checkbox.png'}
-          alt='checked_checkbox'/>Show Me Something Fun!</div>)
+          src = {process.env.PUBLIC_URL+ 'icons/unchecked_checkbox.png'}
+          alt='unchecked_checkbox'/>Show Me Something Fun!</div>)
     }
   }
 }

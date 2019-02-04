@@ -65,7 +65,22 @@ const addExperienceMutation=gql`
   }
 `
 
-export {getCompaniesQuery, getExperiencesQuery, getCompanyQuery, addCompanyMutation, addExperienceMutation, getCategoriesQuery};
+const getExperiencesByCategoryQuery=gql`
+{
+  experiencesByCategories($category: [String]!){
+    position,
+    startDate,
+    endDate,
+    company{
+      name,
+      city
+    },
+    skills {
+      summary
+      detail
+    }
+  }
+}
+`
 
-
-
+export {getCompaniesQuery, getExperiencesQuery, getCompanyQuery, addCompanyMutation, addExperienceMutation, getCategoriesQuery, getExperiencesByCategoryQuery};

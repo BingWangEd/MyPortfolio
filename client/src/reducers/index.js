@@ -35,7 +35,7 @@ let reducer = function (state, action){
     case 'SELECT_FUN_MODE':
     case 'UNSELECT_FUN_MODE':
       return Object.assign({}, state, {
-         funMode: ifSelectFunMode
+         funMode: action.ifSelectFunMode
       })
 
     default:

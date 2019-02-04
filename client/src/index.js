@@ -17,7 +17,8 @@ const client = new ApolloClient({
 })
 
 export const initialState = {
-  selectedExperienceCategory: []
+  selectedExperienceCategory: [],
+  funMode: false
 }
 
 const store = createStore(

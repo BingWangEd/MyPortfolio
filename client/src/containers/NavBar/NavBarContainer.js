@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {graphql} from 'react-apollo';
 import {getCategoriesQuery} from '../../queries/queries';
-import {selectExperienceCategory, unselectExperienceCategory, selectAllExperienceCategories, unselectAllExperienceCategories} from '../../actions/index';
+import {selectExperienceCategory, unselectExperienceCategory, selectAllExperienceCategories, unselectAllExperienceCategories, selectFunMode, unselectFunMode} from '../../actions/index';
 import NavBar from './NavBar';
 
 
@@ -24,6 +24,8 @@ class NavBarContainer extends Component {
           unselectExperienceCategory = {this.props.unselectExperienceCategory}
           selectAllExperienceCategories = {this.props.selectAllExperienceCategories}
           unselectAllExperienceCategories = {this.props.unselectAllExperienceCategories}
+          selectFunMode = {this.props.selectFunMode}
+          unselectFunMode = {this.props.unselectFunMode}
         />
     )
   }
@@ -34,5 +36,5 @@ function mapStateToProps(state){
 }
 
 export default connect(
-  mapStateToProps, {selectExperienceCategory, unselectExperienceCategory, selectAllExperienceCategories, unselectAllExperienceCategories}
+  mapStateToProps, {selectExperienceCategory, unselectExperienceCategory, selectAllExperienceCategories, unselectAllExperienceCategories, selectFunMode, unselectFunMode}
 )(graphql(getCategoriesQuery)(NavBarContainer))

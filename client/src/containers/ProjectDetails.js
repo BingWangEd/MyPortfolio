@@ -24,7 +24,6 @@ class ProjectDetails extends Component {
   }
 
   render(){
-    console.log(this.props)
     return (
         <div>
           <h2>Project Details Here</h2>
