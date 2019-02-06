@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {graphql} from 'react-apollo';
-import {getCategoriesQuery} from '../../queries/queries';
+import {getCategoriesQuery, getExperienceByCategoryQuery} from '../../queries/queries';
 import {selectExperienceCategory, unselectExperienceCategory, selectAllExperienceCategories, unselectAllExperienceCategories, selectFunMode, unselectFunMode} from '../../actions/index';
 import NavBar from './NavBar';
 

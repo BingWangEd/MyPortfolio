@@ -202,6 +202,17 @@ const RootQuery = new GraphQLObjectType({
         return Experience.find({category: args.category})
       }
     }
+    // experiencesByCategories: {
+    //   type: new GraphQLList(ExperienceType),
+    //   args: {categories: {type: GraphQLList(GraphQLString)}},
+    //   resolve(parent, args){
+    //     let results = []
+    //     args.categories.forEach(c=>{
+    //       console.log(c)
+    //       return Experience.find({category: c})
+    //     })
+      // }
+    //}
   }
 })
 

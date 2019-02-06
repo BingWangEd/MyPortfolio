@@ -6,7 +6,6 @@ import {getCompanyQuery} from '../queries/queries';
 class ProjectDetails extends Component {
   displayExperienceDetails = () => {
     const company = this.props.data.company;
-    console.log(company)
     if (company) {
       return(
         <div>

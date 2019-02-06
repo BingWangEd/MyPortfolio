@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {graphql} from 'react-apollo';
-import {getExperiencesByCategory} from '../queries/queries';
 
 class TimelineContainer extends Component {
 
@@ -22,12 +21,4 @@ function mapStateToProps(state){
 
 export default connect(
   mapStateToProps
-)(graphql(getExperiencesByCategory, {
-  options: (props)=>{
-    return{
-      variables:{
-        id: props.selectedCompanyId
-      }
-    }
-  }
-})(TimelineContainer))
+)(TimelineContainer)
