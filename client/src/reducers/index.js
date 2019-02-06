@@ -18,15 +18,20 @@ let reducer = function (state, action){
       })
     case 'SELECT_EXPERIENCE_CATEGORY':
       return Object.assign({}, state, {
-         selectedExperienceCategory: state.selectedExperienceCategory.concat([action.selectedExperienceCategory])
+         selectedExperienceCategory: state.selectedExperienceCategory.concat([action.selectedExperienceCategory]),
+         experiences: state.experiences.concat(action.newExperiences.data)
       })
     case 'UNSELECT_EXPERIENCE_CATEGORY':
+      const newExperiences = state.experiences.filter(e=>{
+        e.category.toLowerCase.replace('_', ' ')!==action.unselectedExperienceCategory.toLowerCase;})
       return Object.assign({}, state, {
-         selectedExperienceCategory: state.selectedExperienceCategory.filter(i=>i!==action.unselectedExperienceCategory)
+         selectedExperienceCategory: state.selectedExperienceCategory.filter(i=>i!==action.unselectedExperienceCategory),
+         experiences: newExperiences
       })
     case 'UNSELECT_ALL_EXPERIENCE_CATEGORIES':
       return Object.assign({}, state, {
-         selectedExperienceCategory: []
+         selectedExperienceCategory: [],
+         experiences: []
       })
     case 'SELECT_ALL_EXPERIENCE_CATEGORIES':
       return Object.assign({}, state, {
@@ -37,7 +42,6 @@ let reducer = function (state, action){
       return Object.assign({}, state, {
          funMode: action.ifSelectFunMode
       })
-
     default:
       return state;
   }

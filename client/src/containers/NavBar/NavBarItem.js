@@ -2,7 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 import NavSelectButton from './NavSelectButton';
 
-const NavBarItem = ({key, category, selectExperienceCategory, unselectExperienceCategory}) => (
+const NavBarItem = ({key, category, selectExperienceCategory, unselectExperienceCategory, updateExperienceData}) => (
   <div>
     <NavSelectButton 
       category={category}

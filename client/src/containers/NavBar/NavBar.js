@@ -18,6 +18,7 @@ class NavBar extends Component {
           selectAllExperienceCategories = {this.props.selectAllExperienceCategories}
           unselectAllExperienceCategories = {this.props.unselectAllExperienceCategories}
           unselectFunMode = {this.props.unselectFunMode}
+          updateExperienceData = {this.props.updateExperienceData}
         />
         {this.props.categories.map((category, index)=>{
           return (
@@ -32,6 +33,7 @@ class NavBar extends Component {
           selectFunMode = {this.props.selectFunMode}
           unselectFunMode = {this.props.unselectFunMode}
           unselectAllExperienceCategories = {this.props.unselectAllExperienceCategories}
+          updateExperienceData = {this.props.updateExperienceData}
         />
         </div>
       )

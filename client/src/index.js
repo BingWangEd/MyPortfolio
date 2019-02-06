@@ -18,6 +18,7 @@ const client = new ApolloClient({
 
 export const initialState = {
   selectedExperienceCategory: [],
+  experiences: [],
   funMode: false
 }
 

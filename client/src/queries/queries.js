@@ -78,7 +78,8 @@ query($category: String!){
     skills {
       summary,
       detail
-    }
+    },
+    category
   }
 }
 `

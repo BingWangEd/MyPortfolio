@@ -26,10 +26,11 @@ export const selectCompany = (selectedCompanyId) => {
   }
 }
 
-export const selectExperienceCategory = (selectedExperienceCategory) => {
+export const selectExperienceCategory = (selectedExperienceCategory, newExperiences) => {
   return {
     type: 'SELECT_EXPERIENCE_CATEGORY',
-    selectedExperienceCategory
+    selectedExperienceCategory,
+    newExperiences
   }
 }
 
