@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {graphql} from 'react-apollo';
 
+import {getAllExperiencesQuery} from '../queries/queries';
+
 class TimelineContainer extends Component {
 
 
@@ -21,4 +23,4 @@ function mapStateToProps(state){
 
 export default connect(
   mapStateToProps
-)(TimelineContainer)
+)(graphql(getAllExperiencesQuery)(TimelineContainer))
