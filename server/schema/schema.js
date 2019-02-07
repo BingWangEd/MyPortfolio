@@ -11,7 +11,7 @@ const ExperienceCategoryEnumType = new GraphQLEnumType({
   name: 'ExperienceCategoryEnum',
   values: {
     "TEACHING": {value: "Teaching"},
-    "CURRICULUM_DESIGN": {value: "Curriculum Desgin"},
+    "CURRICULUM_DESIGN": {value: "Curriculum Design"},
     "WRITING": {value: "Writing"},
     "SOFTWARE_DEVELOPMENT": {value: "Software Development"},
     "DATA_ANALYSIS": {value: "Data Analysis"},
