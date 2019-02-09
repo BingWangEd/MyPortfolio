@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Radium, {StyleRoot} from 'radium';
 import {withRouter} from 'react-router-dom';
-import ExperienceList from './containers/ExperienceList';
-import SearchExperience from './containers/SearchExperience';
-import ProjectDetails from './containers/ProjectDetails';
-
 import NavBarContainer from './containers/NavBar/NavBarContainer';
+import TimelineContainer from './containers/Timeline/TimelineContainer.js';
 
 const styles = {
   center: {
@@ -21,6 +18,7 @@ class App extends Component {
           <div className="App">
             <div style={[styles.center]}>
               <NavBarContainer />
+              <TimelineContainer />
             </div>
           </div>
         </StyleRoot>

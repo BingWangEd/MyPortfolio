@@ -5,7 +5,7 @@ const experienceSchema = new Schema({
   position: String,
   startDate: String,
   endDate: String,
-  companyId: String,
+  organizationId: String,
   category: String
 })
 

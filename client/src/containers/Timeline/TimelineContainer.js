@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {graphql} from 'react-apollo';
-
-import {getAllExperiencesQuery} from '../queries/queries';
+import ExperienceItem from './ExperienceItem';
 
 class TimelineContainer extends Component {
-
-
   render(){
     return (
         <div>
-          <h2>Project Details Here</h2>
-          {this.displayExperienceDetails()}
+          <h2>Timeline Here</h2>
+          {this.props.experiences.map((experience, index)=>{
+            return <ExperienceItem 
+            key={index}
+            experience={experience}/>
+          })}
         </div>
     )
   }
@@ -23,4 +23,4 @@ function mapStateToProps(state){
 
 export default connect(
   mapStateToProps
-)(graphql(getAllExperiencesQuery)(TimelineContainer))
+)(TimelineContainer)
