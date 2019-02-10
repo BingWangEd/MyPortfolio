@@ -8,78 +8,19 @@ const getCategoriesQuery=gql`
 }
 `
 
-const getCompaniesQuery=gql`
+const getOrganizationsQuery=gql`
 {
-  companies{
+  organizations{
+    id,
     name,
     city,
-    id
-  }
-}
-`
-
-const getExperiencesQuery=gql`
-{
-  experiences{
-    position,
-    startDate
-    company{
-      name
-    },
-    id
-  }
-}
-`
-
-const getCompanyQuery=gql`
-  query($id: ID){
-    company(id: $id){
-      id,
-      name,
-      city,
-      experiences{
-        id,
-        position,
-        startDate
-      }
-    }
-  }
-`
-
-const addCompanyMutation=gql`
-  mutation($name: String!, $city:String!){
-    addCompany(name:$name, city:$city){
-      name,
-      city
-    }
-  }
-`
-
-const addExperienceMutation=gql`
-  mutation{
-    addExperience(position:"", startDate:"", company: ""){
+    description,
+    link,
+    experiences{
       position,
-      startDate,
-      id
+      degree,
+      startDate
     }
-  }
-`
-
-const getExperienceByCategoryQuery=gql`
-query($category: String!){
-  experienceByCategory(category: $category){
-    position,
-    startDate,
-    endDate,
-    company{
-      name,
-      city
-    },
-    skills {
-      summary,
-      detail
-    },
-    category
   }
 }
 `
@@ -90,21 +31,35 @@ const getAllExperiencesQuery=gql`
     position,
     startDate,
     endDate,
-    category,
-    company{
+    organization{
       name,
       city,
       description,
       link
     },
-    skills{
-      detail,
-      experience {
-        id
-      }
-    }
+    category,
+    story,
+    allCategories
   }
 }
 `
 
-export {getCompaniesQuery, getExperiencesQuery, getCompanyQuery, addCompanyMutation, addExperienceMutation, getCategoriesQuery, getExperienceByCategoryQuery, getAllExperiencesQuery};
+const getExperienceByCategoryQuery=gql`
+query($category: String!){
+  experienceByCategory(category: $category){
+    position,
+    startDate,
+    endDate,
+    organization{
+      name,
+      city,
+      description,
+      link
+    },
+    category,
+    story
+  }
+}
+`
+
+export {getCategoriesQuery, getOrganizationsQuery, getAllExperiencesQuery, getExperienceByCategoryQuery};

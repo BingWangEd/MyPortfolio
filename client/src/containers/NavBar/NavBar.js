@@ -8,11 +8,22 @@ import FunButton from './FunButton';
 
 class NavBar extends Component {
   render(){
+    const styles = {
+      center: {
+        margin: 'auto',
+        width: '90%',
+        paddingTop: '50px'
+      },
+      subexperience: {
+        marginLeft: '35px'
+      }
+    };
+
     if (this.props.dataIsLoading) {
-      return (<div>Data Is Loading ...</div>)
+      return (<div style={[styles.center]}>Data Is Loading ...</div>)
     } else {
       return (
-        <div>
+        <div style={[styles.center]}>
         <ExperienceButton 
           categories = {this.props.categories}
           selectAllExperienceCategories = {this.props.selectAllExperienceCategories}
@@ -20,6 +31,7 @@ class NavBar extends Component {
           unselectFunMode = {this.props.unselectFunMode}
           updateExperienceData = {this.props.updateExperienceData}
         />
+        <div style={[styles.subexperience]}>
         {this.props.categories.map((category, index)=>{
           return (
             <NavBarItem 
@@ -29,6 +41,7 @@ class NavBar extends Component {
               unselectExperienceCategory={this.props.unselectExperienceCategory}
            />)
         })}
+        </div>
         <FunButton 
           selectFunMode = {this.props.selectFunMode}
           unselectFunMode = {this.props.unselectFunMode}

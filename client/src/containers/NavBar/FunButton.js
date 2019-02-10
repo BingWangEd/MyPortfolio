@@ -5,16 +5,32 @@ import {getExperienceByCategoryQuery} from '../../queries/queries';
 
 class FunButton extends Component {
   render(){
+    const styles = {
+      buttonStyle: {
+        width: '35px'
+      },
+      textParent: {
+        position: 'relative'
+      },
+      text: {
+        display: 'inline',
+        paddingLeft: '5px',
+        position: 'absolute',
+        bottom: '0.1px',
+        color: 'white'
+      }
+    };
+    
     if (this.props.funMode) {
-      return (<div><img onClick={(e)=>{this.props.unselectFunMode();}} src = {process.env.PUBLIC_URL+ 'icons/checked_checkbox.png'} alt='checked_checkbox'/>Show Me Something Fun!</div>)
+      return (<div style={[styles.textParent]}><img style={[styles.buttonStyle]} onClick={(e)=>{this.props.unselectFunMode();}} src = {process.env.PUBLIC_URL+ 'icons/checked_checkbox.png'} alt='checked_checkbox'/><p style={[styles.text]}>Show Me Something Fun!</p></div>)
     } else {
-      return (<div><img 
-          onClick={(e)=>{
+      return (<div style={[styles.textParent]}><img style={[styles.buttonStyle]}
+           onClick={(e)=>{
             this.props.selectFunMode();
             this.props.unselectAllExperienceCategories();
           }}
           src = {process.env.PUBLIC_URL+ 'icons/unchecked_checkbox.png'}
-          alt='unchecked_checkbox'/>Show Me Something Fun!</div>)
+          alt='unchecked_checkbox'/><p style={[styles.text]}>Show Me Something Fun!</p></div>)
     }
   }
 }

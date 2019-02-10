@@ -6,11 +6,18 @@ import {getExperienceByCategoryQuery} from '../../queries/queries';
 
 class NavSelectButton extends Component {
   render(){
+    const styles = {
+      buttonStyle: {
+        width: '35px',
+        display: 'inline'
+      }
+    };
+
     if (this.props.selectedExperienceCategory.includes(this.props.category)) {
-      return (<img onClick={(e)=>this.props.unselectExperienceCategory(this.props.category)} src = {process.env.PUBLIC_URL+ 'icons/checked_checkbox.png'} alt='checked_checkbox'/>)
+      return (<img style={[styles.buttonStyle]} onClick={(e)=>this.props.unselectExperienceCategory(this.props.category)} src = {process.env.PUBLIC_URL+ 'icons/checked_checkbox.png'} alt='checked_checkbox'/>)
     } else {
       const data = this.props.data.experienceByCategory;
-      return (<img onClick={(e)=>{this.props.selectExperienceCategory(this.props.category, {data});}} src = {process.env.PUBLIC_URL+ 'icons/unchecked_checkbox.png'} alt='unchecked_checkbox'/>)
+      return (<img style={[styles.buttonStyle]} onClick={(e)=>{this.props.selectExperienceCategory(this.props.category, {data});}} src = {process.env.PUBLIC_URL+ 'icons/unchecked_checkbox.png'} alt='unchecked_checkbox'/>)
     }
   }
 }
