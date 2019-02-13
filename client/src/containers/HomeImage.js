@@ -1,10 +1,9 @@
 import React from 'react';
 import Radium from 'radium';
-import './Experience.css';
+import './Timeline/Experience.css';
 
 const styles = {
   slide: {
-    backgroundImage: 'url(\'https://lorempixel.com/640/480/abstract/6/\')',
     zIndex: '2',
     position: 'relative',
     padding: '25vh 10%',
@@ -16,15 +15,12 @@ const styles = {
   }
 };
 
-const ExperienceItem = (experience) => (
-  <div style={[styles.slide]} className='slide'>
+const HomeImage = () => (
+  <div style={[styles.slide,  {backgroundImage: "url('"+ process.env.PUBLIC_URL +"Images/Teaching.jpg')"}]} className='slide'>
     <div>
-      <h3>{experience.experience.organization.name}</h3>
-      <h1>{experience.experience.story}</h1>
+      <h1>I'm aspired to build and design the best learning experience for students.</h1>
     </div>
   </div>
 )
 
-export default Radium(ExperienceItem);
-
-
+export default Radium(HomeImage);

@@ -6,11 +6,11 @@ class TimelineContainer extends Component {
   render(){
     return (
         <div>
-          <h2>Timeline Here</h2>
           {this.props.experiences.map((experience, index)=>{
-            return <ExperienceItem 
-            key={index}
-            experience={experience}/>
+            return (<ExperienceItem 
+              key={index}
+              experience={experience}
+            />)
           })}
         </div>
     )

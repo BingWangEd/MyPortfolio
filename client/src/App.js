@@ -4,23 +4,17 @@ import Radium, {StyleRoot} from 'radium';
 import {withRouter} from 'react-router-dom';
 import NavBarContainer from './containers/NavBar/NavBarContainer';
 import TimelineContainer from './containers/Timeline/TimelineContainer.js';
-
-const styles = {
-  center: {
-    backgroundColor: 'gray'
-  }
-};
+import HomeImage from './containers/HomeImage.js';
 
 class App extends Component {
   render() {
     return (
         <StyleRoot>
           <div className="App">
-            <div style={[styles.center]}>
               <NavBarContainer />
+              <HomeImage />
               <TimelineContainer />
             </div>
-          </div>
         </StyleRoot>
 
     );

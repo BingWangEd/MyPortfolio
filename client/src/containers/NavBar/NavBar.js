@@ -11,37 +11,26 @@ let menuOpen = true;
 class NavBar extends Component {
   render(){
     const styles = {
-      center: {
-        marginLeft: '50px',
-        width: '40%',
-        paddingTop: '50px',
-        position: 'relative',
-        height: '500px'
-      },
-      contentWrapper: {
+      wrapper: {
+        position: 'sticky',
+        top: 0,
+        zIndex: '9',
+        width: '320px',
+        paddingLeft: '35px',
+        paddingTop: '35px',
         display: 'inline-block',
-        width: '100%',
-        position: 'absolute'
+        float: 'left'
       },
       subexperience: {
         marginLeft: '35px'
       },
-      slideLeft: {
-        position: 'absolute',
-        top: '50px',
-        right: '0',
-        zIndex: '20'
-      },
-      slideRight: {
-        position: 'absolute',
-        top: '50px',
-        left: '0',
-        zIndex: '20'
-      },
       slideIcon: {
-        width: '35px'
+        width: '35px',
+        position: 'absolute',
+        right: 0,
+        zIndex: '20'
       }
-    };
+    }
 
     let openMenu = () => {
       menuOpen = true;
@@ -54,11 +43,11 @@ class NavBar extends Component {
     }
 
     let slideButton = menuOpen ? 
-      (<div style={[styles.slideLeft]} onClick={()=>{closeMenu()}}><img 
+      (<div onClick={()=>{closeMenu()}}><img 
         style={[styles.slideIcon]}
         src = {process.env.PUBLIC_URL+ 'icons/slide_left.png'}
         alt='slide left'/></div>) : 
-      (<div style={[styles.slideRight]} onClick={()=>{openMenu()}}><img 
+      (<div onClick={()=>{openMenu()}}><img 
         style={[styles.slideIcon]}
         src = {process.env.PUBLIC_URL+ 'icons/slide_right.png'}
         alt='slide right'/></div>)
@@ -70,34 +59,32 @@ class NavBar extends Component {
         </div>)
     } else {
       return (
-        <div style={[styles.center]}>
+        <div style={[styles.wrapper, { marginLeft: menuOpen ? 0 : '-285px'}]}>
           {slideButton}
-          <div style={[styles.contentWrapper, menuOpen ? {left: 0} : {left: '-100%'}]}>
-            <ExperienceButton 
-              categories = {this.props.categories}
-              selectAllExperienceCategories = {this.props.selectAllExperienceCategories}
-              unselectAllExperienceCategories = {this.props.unselectAllExperienceCategories}
-              unselectFunMode = {this.props.unselectFunMode}
-              updateExperienceData = {this.props.updateExperienceData}
-            />
-            <div style={[styles.subexperience]}>
-            {this.props.categories.map((category, index)=>{
-              return (
-                <NavBarItem 
-                  key={index} 
-                  category = {category} 
-                  selectExperienceCategory={this.props.selectExperienceCategory} 
-                  unselectExperienceCategory={this.props.unselectExperienceCategory}
-               />)
-            })}
-            </div>
-            <FunButton 
-              selectFunMode = {this.props.selectFunMode}
-              unselectFunMode = {this.props.unselectFunMode}
-              unselectAllExperienceCategories = {this.props.unselectAllExperienceCategories}
-              updateExperienceData = {this.props.updateExperienceData}
-            />
+          <ExperienceButton 
+            categories = {this.props.categories}
+            selectAllExperienceCategories = {this.props.selectAllExperienceCategories}
+            unselectAllExperienceCategories = {this.props.unselectAllExperienceCategories}
+            unselectFunMode = {this.props.unselectFunMode}
+            updateExperienceData = {this.props.updateExperienceData}
+          />
+          <div style={[styles.subexperience]}>
+          {this.props.categories.map((category, index)=>{
+            return (
+              <NavBarItem 
+                key={index} 
+                category = {category} 
+                selectExperienceCategory={this.props.selectExperienceCategory} 
+                unselectExperienceCategory={this.props.unselectExperienceCategory}
+             />)
+          })}
           </div>
+          <FunButton 
+            selectFunMode = {this.props.selectFunMode}
+            unselectFunMode = {this.props.unselectFunMode}
+            unselectAllExperienceCategories = {this.props.unselectAllExperienceCategories}
+            updateExperienceData = {this.props.updateExperienceData}
+          />
         </div>
       )
     }
