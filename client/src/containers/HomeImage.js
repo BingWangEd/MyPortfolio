@@ -6,7 +6,6 @@ const styles = {
   slide: {
     zIndex: '2',
     position: 'relative',
-    
     minHeight: '100vh',
     width: '100vw',
     boxSizing: 'border-box',
@@ -14,6 +13,7 @@ const styles = {
     backgroundRepeat: 'no-repeat', 
     backgroundSize: '100%',
     backgroundPosition: 'center',
+    backgroundAttachment: 'fixed',
     position:'relative'
   },
   shade: {
@@ -40,7 +40,7 @@ const styles = {
 };
 
 const HomeImage = () => (
-  <div style={[styles.slide,  {backgroundImage: "url('"+ process.env.PUBLIC_URL +"Images/Teaching.jpg')"}]} className='slide'>
+  <div style={[styles.slide,  {backgroundImage: "url('"+ process.env.PUBLIC_URL +"Images/Teaching.jpg')"}]}>
     <div style={[styles.shade]}>
       <div style={[styles.quote]}>
         <h1 style={[styles.header]}>I aspire to develop the best learning experience for students.</h1>

@@ -1,10 +1,7 @@
-.slide:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  box-shadow: 0 0 8px 1px rgba(0, 0, 0, .7);
-  background: 50% 50% / cover;
+/*.slide:nth-child(even) {
+  backgroundImage: "url('"+ process.env.PUBLIC_URL +"Images/OrangeBackground.jpg')"
 }
+
+.slide:nth-child(odd) {
+  backgroundImage: "url('"+ process.env.PUBLIC_URL +"Images/GrayBackground.jpg')"
+}*/
