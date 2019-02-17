@@ -14,21 +14,23 @@ const styles = {
     backgroundSize: '100%',
     backgroundPosition: 'center',
     backgroundAttachment: 'fixed',
-    position:'relative'
+    position:'relative',
+
   },
   shade: {
-    padding: '25vh 10%',
+    
     backgroundColor: 'rgba(50, 50, 50, 0.6)',
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
-    minHeight: 'inherit'
+    minHeight: '100vh'
   },
   quote: {
     width: '50%',
     paddingLeft: '35%',
-    color: 'white'
+    color: 'white',
+    marginTop: '25vh'
   },
   header: {
     paddingBottom: '30px'

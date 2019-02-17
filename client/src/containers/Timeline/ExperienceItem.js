@@ -4,7 +4,7 @@ import Radium from 'radium';
 import './Experience.css';
 
 import { compose } from 'redux';
-import sr from './ScrollReveal.js';
+import ScrollReveal from './ScrollReveal.js';
 
 var comeInKeyFrames = Radium.keyframes({
   'to': {transform: 'translateY(0)'}
@@ -41,7 +41,7 @@ const styles = {
     fontSize: '550%',
     position: 'absolute',
     opacity: '0.1',
-    bottom: '-180px',
+    bottom: '-150px',
     left: 0
   },
   link: {
@@ -66,42 +66,15 @@ class ExperienceItem extends Component {
   componentDidMount = () => {
     const config = {
       origin: 'bottom',
-      duration: 1000,
+      duration: 800,
       delay: 150,
-      distance: '500px',
-      scale: 1,
-      easing: 'ease',
+      distance: '300px',
+      scale: 1.3,
+      easing: 'ease-in-out',
     }
 
-    sr.reveal(this.refs.box1, config)
+    ScrollReveal.reveal(this.refs.box1, config)
   }
-  // componentDidMount() {
-  //   window.addEventListener('scroll', this.isInViewport, true);
-  // }
-
-  // componentWillUnmount() {
-  //   window.removeEventListener('scroll', this.isInViewport);
-  // }
-    
-  //myRef = React.createRef();
-  
-  // isInViewport = (offset = 0) => {
-  //   if (!this.myRef) return false;
-  //   const top = this.myRef.getBoundingClientRect().top;
-  //   let result = (top + offset) >= 0 && (top - offset) <= window.innerHeight;
-  //   if (result) {console.log("%s %s", this.props.experience.organization.name,this.props.experience.position)}
-  //   return result
-  // }
-
-  // isInViewport = (e) => {
-  //   if (!this.myRef) return false;
-  //   console.log(e)
-  //   // const top = this.myRef.getBoundingClientRect().top;
-  //   // let result = (top + offset) >= 0 && (top - offset) <= window.innerHeight;
-  //   // if (result) {console.log("%s %s", this.props.experience.organization.name,this.props.experience.position)}
-  //   // return result
-  // }
-  
 
   render() {
     return (
