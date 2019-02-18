@@ -11,7 +11,7 @@ class TimelineContainer extends Component {
             return (<ExperienceItem 
               key={index}
               experience={experience}
-              isOdd={isOdd}
+              num={index}
             />)
           })}
         </div>

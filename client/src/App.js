@@ -4,7 +4,7 @@ import Radium, {StyleRoot} from 'radium';
 import {withRouter} from 'react-router-dom';
 import NavBarContainer from './containers/NavBar/NavBarContainer';
 import TimelineContainer from './containers/Timeline/TimelineContainer.js';
-import HomeImage from './containers/HomeImage.js';
+import HomeImage from './containers/Home/HomeImage.js';
 
 class App extends Component {
   render() {

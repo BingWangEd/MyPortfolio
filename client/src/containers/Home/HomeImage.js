@@ -1,6 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
-import './Timeline/Experience.css';
+import '../Timeline/Experience.css';
+import ScrollButton from './ScrollButton';
 
 const styles = {
   slide: {
@@ -18,7 +19,6 @@ const styles = {
 
   },
   shade: {
-    
     backgroundColor: 'rgba(50, 50, 50, 0.6)',
     position: 'absolute',
     top: 0,
@@ -51,6 +51,7 @@ const HomeImage = () => (
           <p>EdTech Developer</p>
         </div>
       </div>
+      <ScrollButton />
     </div>
   </div>
 )

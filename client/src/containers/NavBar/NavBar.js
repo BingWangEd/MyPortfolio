@@ -6,10 +6,34 @@ import NavBarItem from './NavBarItem';
 import ExperienceButton from './ExperienceButton';
 import FunButton from './FunButton';
 
-let menuOpen = true;
+let menuOpen = false;
 
 class NavBar extends Component {
   render(){
+    let bounceKeyFrames = Radium.keyframes({
+      '0%': {
+        transform: 'translateX(0)'
+      }, 
+      '20%': {
+        transform: 'translateX(0)'
+      }, 
+      '50%': {
+        transform: 'translateX(0)'
+      }, 
+      '80%': {
+        transform: 'translateX(0)'
+      }, 
+      '100%': {
+        transform: 'translateX(0)'
+      },
+      '40%': {
+        transform: 'translateX(-30px)'
+      },
+      '60%': {
+        transform: 'translateX(-15px)'
+      }
+    }, 'bounce')
+
     const styles = {
       wrapper: {
         position: 'sticky',
@@ -29,6 +53,10 @@ class NavBar extends Component {
         position: 'absolute',
         right: 0,
         zIndex: '20'
+      },
+      bounceEffect: {
+        animation: 'bounce 2s 2',
+        animationName: bounceKeyFrames
       }
     }
 
@@ -47,7 +75,7 @@ class NavBar extends Component {
         style={[styles.slideIcon]}
         src = {process.env.PUBLIC_URL+ 'icons/slide_left.png'}
         alt='slide left'/></div>) : 
-      (<div onClick={()=>{openMenu()}}><img 
+      (<div style={[styles.bounceEffect]} onClick={()=>{openMenu()}}><img 
         style={[styles.slideIcon]}
         src = {process.env.PUBLIC_URL+ 'icons/slide_right.png'}
         alt='slide right'/></div>)

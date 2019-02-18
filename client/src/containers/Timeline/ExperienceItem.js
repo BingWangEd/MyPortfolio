@@ -6,16 +6,7 @@ import './Experience.css';
 import { compose } from 'redux';
 import ScrollReveal from './ScrollReveal.js';
 
-var comeInKeyFrames = Radium.keyframes({
-  'to': {transform: 'translateY(0)'}
-}, 'comeIn');
-
 const styles = {
-  slideEffect: {
-    transform: 'translateY(150px)',
-    animation: 'comeIn 0.8s ease forwards',
-    animationName: comeInKeyFrames
-  },
   slide: {
     overflow: 'hidden',
     color: 'white',
@@ -63,6 +54,7 @@ const styles = {
 };
 
 class ExperienceItem extends Component {
+
   componentDidMount = () => {
     const config = {
       origin: 'bottom',
@@ -70,26 +62,27 @@ class ExperienceItem extends Component {
       delay: 150,
       distance: '300px',
       scale: 1.3,
-      easing: 'ease-in-out',
+      easing: 'ease',
     }
 
     ScrollReveal.reveal(this.refs.box1, config)
   }
 
   render() {
+    let isOdd = this.props.num % 2 === 0
     return (
       <section className='testimonial' id='testimonials'>
         <div className='row' ref='box1'>
-      <div style={[styles.slide, {backgroundImage: this.props.isOdd ? "url('"+ process.env.PUBLIC_URL +"Images/OrangeBackground.jpg')" : "url('"+ process.env.PUBLIC_URL +"Images/GrayBackground.jpg')"}]}>
-        <div style={[styles.words]}>
-          <div style={[styles.lineDeco]}>
-            <a href={this.props.experience.organization.link} target="_blank" style={[styles.link]}><h3>{this.props.experience.organization.name}</h3></a>
-            <p>{this.props.experience.startDate} - {this.props.experience.endDate}</p>
+          <div style={[styles.slide, {backgroundImage: isOdd ? "url('"+ process.env.PUBLIC_URL +"Images/OrangeBackground.jpg')" : "url('"+ process.env.PUBLIC_URL +"Images/GrayBackground.jpg')"}]}>
+            <div style={[styles.words]}>
+              <div style={[styles.lineDeco]}>
+                <a href={this.props.experience.organization.link} target="_blank" style={[styles.link]}><h3>{this.props.experience.organization.name}</h3></a>
+                <p>{this.props.experience.startDate} - {this.props.experience.endDate}</p>
+              </div>
+              <h1>{this.props.experience.story}</h1>
+            </div>
+            <div style={[styles.category]}><h1>{this.props.experience.category}</h1></div>
           </div>
-          <h1>{this.props.experience.story}</h1>
-        </div>
-        <div style={[styles.category]}><h1>{this.props.experience.category}</h1></div>
-      </div>
       </div>
       </section>
     )
