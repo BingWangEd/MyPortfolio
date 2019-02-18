@@ -40,10 +40,13 @@ class NavBar extends Component {
         top: 0,
         zIndex: '9',
         width: '320px',
-        paddingLeft: '35px',
-        paddingTop: '35px',
+        padding: '35px',
         display: 'inline-block',
-        float: 'left'
+        float: 'left',
+        background: menuOpen ? 'rgba(50, 50, 50, 0.6)' : null,
+        '@media screen and (min-width: 900px)': {
+          background: null
+        }
       },
       subexperience: {
         marginLeft: '35px'

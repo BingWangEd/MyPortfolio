@@ -12,10 +12,11 @@ const styles = {
     boxSizing: 'border-box',
     boxShadow: '0 -1px 10px rgba(0, 0, 0, .7)',
     backgroundRepeat: 'no-repeat', 
-    backgroundSize: '100%',
+    backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundAttachment: 'fixed',
     position:'relative',
+
 
   },
   shade: {
@@ -33,7 +34,11 @@ const styles = {
     marginTop: '25vh'
   },
   header: {
-    paddingBottom: '30px'
+    paddingBottom: '30px',
+    fontSize: '1.5em',
+    '@media screen and (min-width: 900px)': {
+      fontSize: '2em'
+    }
   },
   intro: {
     borderLeft: '4px solid #FF634D',
@@ -48,7 +53,7 @@ const HomeImage = () => (
         <h1 style={[styles.header]}>I aspire to develop the best learning experience for students.</h1>
         <div style={[styles.intro]}>
           <p>Bing Wang</p>
-          <p>EdTech Developer</p>
+          <p>EdTech Product Developer</p>
         </div>
       </div>
       <ScrollButton />

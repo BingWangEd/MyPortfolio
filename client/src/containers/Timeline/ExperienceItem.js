@@ -11,7 +11,7 @@ const styles = {
     overflow: 'hidden',
     color: 'white',
     zIndex: '2',
-    padding: '25vh 10%',
+    padding: '15vh 10%',
     position: 'relative',
     minHeight: '100vh',
     width: '100vw',
@@ -21,7 +21,10 @@ const styles = {
     backgroundSize: '120%',
     backgroundPosition: 'center',
     backgroundAttachment: 'fixed',
-    position:'relative'
+    position:'relative',
+    '@media screen and (min-width: 600px)': {
+      padding: '25vh 10%'
+    }
   },
   words: {
     width: '60%',
@@ -50,6 +53,12 @@ const styles = {
   trialDiv: {
     height: '500px',
     border: '5px solid black'
+  },
+  story: {
+    fontSize: '1.5em',
+    '@media screen and (min-width: 900px)': {
+      fontSize: '2em'
+    }
   }
 };
 
@@ -79,7 +88,7 @@ class ExperienceItem extends Component {
                 <a href={this.props.experience.organization.link} target="_blank" style={[styles.link]}><h3>{this.props.experience.organization.name}</h3></a>
                 <p>{this.props.experience.startDate} - {this.props.experience.endDate}</p>
               </div>
-              <h1>{this.props.experience.story}</h1>
+              <h1 style={[styles.stroy]}>{this.props.experience.story}</h1>
             </div>
             <div style={[styles.category]}><h1>{this.props.experience.category}</h1></div>
           </div>
