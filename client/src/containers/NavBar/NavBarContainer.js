@@ -1,19 +1,31 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {graphql} from 'react-apollo';
-import {getCategoriesQuery, getExperienceByCategoryQuery} from '../../queries/queries';
+import {graphql, compose} from 'react-apollo';
+import {getCategoriesQuery, getExperienceByCategoryQuery,getAllExperiencesQuery} from '../../queries/queries';
 import {selectExperienceCategory, unselectExperienceCategory, selectAllExperienceCategories, unselectAllExperienceCategories, selectFunMode, unselectFunMode} from '../../actions/index';
 import NavBar from './NavBar';
 
+let ifLoaded = false
 
 class NavBarContainer extends Component {
+
   render(){
-    let data = this.props.data;
+    let data = this.props.getCategoriesQuery;
     let categories = null;
     let dataIsLoading = true;
+    let experienceData = this.props.getAllExperiencesQuery;
 
     if (!data.loading){
       categories = data.experiences[0].allCategories
+    }
+
+    if (!ifLoaded && !experienceData.loading){
+      console.log('select all triggered again')
+      this.props.selectAllExperienceCategories(categories, experienceData.experiences)
+      ifLoaded = true
+    }
+
+    if (!data.loading && !experienceData.loading){
       dataIsLoading = false;
     }
     return (
@@ -35,6 +47,11 @@ function mapStateToProps(state){
   return state
 }
 
-export default connect(
-  mapStateToProps, {selectExperienceCategory, unselectExperienceCategory, selectAllExperienceCategories, unselectAllExperienceCategories, selectFunMode, unselectFunMode}
-)(graphql(getCategoriesQuery)(NavBarContainer))
+export default compose(
+  connect(
+    mapStateToProps,
+    {selectExperienceCategory, unselectExperienceCategory, selectAllExperienceCategories, unselectAllExperienceCategories, selectFunMode, unselectFunMode}
+  ),
+  graphql(getCategoriesQuery, {name: "getCategoriesQuery"}),
+  graphql(getAllExperiencesQuery, {name: "getAllExperiencesQuery"})
+)(NavBarContainer);

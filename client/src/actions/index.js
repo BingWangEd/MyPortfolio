@@ -42,6 +42,7 @@ export const unselectExperienceCategory = (unselectedExperienceCategory) => {
 }
 
 export const selectAllExperienceCategories = (experienceCategories, experiences) => {
+
   return {
     type: 'SELECT_ALL_EXPERIENCE_CATEGORIES',
     experienceCategories,
