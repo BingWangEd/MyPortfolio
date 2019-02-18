@@ -7,6 +7,7 @@ import TimelineContainer from './containers/Timeline/TimelineContainer.js';
 import HomeImage from './containers/Home/HomeImage.js';
 
 class App extends Component {
+
   render() {
     return (
         <StyleRoot>
