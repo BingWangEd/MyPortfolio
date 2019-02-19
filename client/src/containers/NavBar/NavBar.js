@@ -17,20 +17,20 @@ class NavBar extends Component {
       '20%': {
         transform: 'translateX(0)'
       }, 
-      '50%': {
-        transform: 'translateX(0)'
-      }, 
-      '80%': {
-        transform: 'translateX(0)'
-      }, 
-      '100%': {
-        transform: 'translateX(0)'
-      },
       '40%': {
         transform: 'translateX(-30px)'
       },
+      '50%': {
+        transform: 'translateX(0)'
+      },
       '60%': {
         transform: 'translateX(-15px)'
+      },
+      '80%': {
+        transform: 'translateX(0)'
+      },
+      '100%': {
+        transform: 'translateX(0)'
       }
     }, 'bounce')
 
@@ -52,14 +52,20 @@ class NavBar extends Component {
         marginLeft: '35px'
       },
       slideIcon: {
+        width: '35px'
+      },
+      bounceEffect: {
+        position: 'absolute',
+        right: 0,
+        zIndex: '20',
+        animation: 'bounce 2s 2',
+        animationName: bounceKeyFrames
+      },
+      slideIconLeft: {
         width: '35px',
         position: 'absolute',
         right: 0,
         zIndex: '20'
-      },
-      bounceEffect: {
-        animation: 'bounce 2s 2',
-        animationName: bounceKeyFrames
       }
     }
 
@@ -75,10 +81,10 @@ class NavBar extends Component {
 
     let slideButton = menuOpen ? 
       (<div onClick={()=>{closeMenu()}}><img 
-        style={[styles.slideIcon]}
+        style={[styles.slideIconLeft]}
         src = {process.env.PUBLIC_URL+ 'icons/slide_left.png'}
         alt='slide left'/></div>) : 
-      (<div style={[styles.bounceEffect]} onClick={()=>{openMenu()}}><img 
+      (<div style={[styles.bounceEffect, styles.slideIcon]} onClick={()=>{openMenu()}}><img 
         style={[styles.slideIcon]}
         src = {process.env.PUBLIC_URL+ 'icons/slide_right.png'}
         alt='slide right'/></div>)
