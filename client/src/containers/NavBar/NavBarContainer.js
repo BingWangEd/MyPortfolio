@@ -20,7 +20,6 @@ class NavBarContainer extends Component {
     }
 
     if (!ifLoaded && !experienceData.loading){
-      console.log('select all triggered again')
       this.props.selectAllExperienceCategories(categories, experienceData.experiences)
       ifLoaded = true
     }

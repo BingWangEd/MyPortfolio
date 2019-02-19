@@ -59,6 +59,9 @@ const styles = {
     '@media screen and (min-width: 900px)': {
       fontSize: '2em'
     }
+  },
+  orange: {
+    color: '#FF634D'
   }
 };
 
@@ -85,7 +88,8 @@ class ExperienceItem extends Component {
           <div style={[styles.slide, {backgroundImage: isOdd ? "url('"+ process.env.PUBLIC_URL +"Images/OrangeBackground.jpg')" : "url('"+ process.env.PUBLIC_URL +"Images/GrayBackground.jpg')"}]}>
             <div style={[styles.words]}>
               <div style={[styles.lineDeco]}>
-                <a href={this.props.experience.organization.link} target="_blank" style={[styles.link]}><h3>{this.props.experience.organization.name}</h3></a>
+                <h3>{this.props.experience.position} <span style={[styles.orange]}>@</span> 
+                <a href={this.props.experience.organization.link} target="_blank" style={[styles.link]}> {this.props.experience.organization.name}</a></h3>
                 <p>{this.props.experience.startDate} - {this.props.experience.endDate}</p>
               </div>
               <h1 style={[styles.stroy]}>{this.props.experience.story}</h1>

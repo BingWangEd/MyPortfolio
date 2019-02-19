@@ -43,9 +43,9 @@ class NavBar extends Component {
         padding: '35px',
         display: 'inline-block',
         float: 'left',
-        background: menuOpen ? 'rgba(50, 50, 50, 0.6)' : null,
-        '@media screen and (min-width: 900px)': {
-          background: null
+        
+        '@media screen and (max-width: 900px)': {
+          background: menuOpen ? 'rgba(50, 50, 50, 0.6)' : null
         }
       },
       subexperience: {
@@ -101,21 +101,17 @@ class NavBar extends Component {
           />
           <div style={[styles.subexperience]}>
           {this.props.categories.map((category, index)=>{
-            return (
-              <NavBarItem 
-                key={index} 
-                category = {category} 
-                selectExperienceCategory={this.props.selectExperienceCategory} 
-                unselectExperienceCategory={this.props.unselectExperienceCategory}
-             />)
+            
+              return (
+                <NavBarItem 
+                  key={index} 
+                  category = {category} 
+                  selectExperienceCategory={this.props.selectExperienceCategory} 
+                  unselectExperienceCategory={this.props.unselectExperienceCategory}
+               />)
+
           })}
           </div>
-          <FunButton 
-            selectFunMode = {this.props.selectFunMode}
-            unselectFunMode = {this.props.unselectFunMode}
-            unselectAllExperienceCategories = {this.props.unselectAllExperienceCategories}
-            updateExperienceData = {this.props.updateExperienceData}
-          />
         </div>
       )
     }
