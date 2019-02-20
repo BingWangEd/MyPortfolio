@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Radium from 'radium';
-import {getExperienceByCategoryQuery} from '../../queries/queries';
 
 class FunButton extends Component {
   render(){

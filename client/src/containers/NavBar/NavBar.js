@@ -4,7 +4,6 @@ import Radium from 'radium';
 import NavBarItem from './NavBarItem';
 
 import ExperienceButton from './ExperienceButton';
-import FunButton from './FunButton';
 
 let menuOpen = false;
 

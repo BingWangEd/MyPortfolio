@@ -7,7 +7,6 @@ class TimelineContainer extends Component {
     return (
         <div>
           {this.props.experiences.map((experience, index)=>{
-            const isOdd = (index % 2) === 0
             return (<ExperienceItem 
               key={index}
               experience={experience}

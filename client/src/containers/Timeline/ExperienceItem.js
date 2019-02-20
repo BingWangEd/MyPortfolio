@@ -12,7 +12,6 @@ const styles = {
     color: 'white',
     zIndex: '2',
     padding: '15vh 10%',
-    position: 'relative',
     minHeight: '100vh',
     width: '100vw',
     boxSizing: 'border-box',
@@ -89,7 +88,7 @@ class ExperienceItem extends Component {
             <div style={[styles.words]}>
               <div style={[styles.lineDeco]}>
                 <h3>{this.props.experience.position} <span style={[styles.orange]}>@</span> 
-                <a href={this.props.experience.organization.link} target="_blank" style={[styles.link]}> {this.props.experience.organization.name}</a></h3>
+                <a href={this.props.experience.organization.link} target="_blank" rel="noopener noreferrer" style={[styles.link]}> {this.props.experience.organization.name}</a></h3>
                 <p>{this.props.experience.startDate} - {this.props.experience.endDate}</p>
               </div>
               <h1 style={[styles.stroy]}>{this.props.experience.story}</h1>

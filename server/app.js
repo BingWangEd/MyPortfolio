@@ -1,16 +1,19 @@
+require('dotenv').config();
 const express = require("express");
 const graphqlHTTP = require("express-graphql");
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-mongoose.connect('mongodb://bwang:bwang0627@ds253324.mlab.com:53324/gql-myportfolio', { useNewUrlParser: true })
+mongoose.connect(process.env.mongodburi, { useNewUrlParser: true })
+
 mongoose.connection.once('open', ()=>{
   console.log('Connected to database');
 });
 
 const app = express();
 app.use(cors());
+app.use(express.static("public"));
 
 app.use('/graphql', graphqlHTTP({
   schema,

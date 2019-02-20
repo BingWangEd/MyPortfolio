@@ -14,10 +14,7 @@ const styles = {
     backgroundRepeat: 'no-repeat', 
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundAttachment: 'fixed',
-    position:'relative',
-
-
+    backgroundAttachment: 'fixed'
   },
   shade: {
     backgroundColor: 'rgba(50, 50, 50, 0.6)',
