@@ -22,11 +22,26 @@ export const initialState = {
   funMode: false
 }
 
-const store = createStore(
-  reducer,
-  initialState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+let store = null
+
+if(process.env.NODE_ENV === 'production') {
+    store = createStore(
+      reducer,
+      initialState
+    );
+} else {
+    store = createStore(
+      reducer,
+      initialState,
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    );
+}
+
+// const store = createStore(
+//   reducer,
+//   initialState,
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+// );
 
 ReactDOM.render(
   <ApolloProvider client={client}>
