@@ -70,51 +70,80 @@ const RootQuery = new GraphQLObjectType({
     organization: {
       type: OrganizationType,
       args: {id: {type: GraphQLID}},
-      resolve(parent, args){
-        //return _.find(companies, {id: args.id})
-        return Organization.findById(args.id);
+      resolve: async(parent, args) => {
+        const foundOrganization = await Organization.findById(args.id);
+        if (!foundOrganization){
+          throw new Error('Organization not found')
+        }
+        return foundOrganization;
       }
+
+      // resolve(parent, args){
+      //   //return _.find(companies, {id: args.id})
+      //   return Organization.findById(args.id);
+      // }
     },
     experience: {
       type: ExperienceType,
       args: {id: {type: GraphQLID}},
-      resolve(parent, args){
-        //return _.find(experiences, {id: args.id})
-        return Experience.findById(args.id);
+      resolve: async(parent, args) => {
+        const foundExperience = await Experience.findById(args.id);
+        if (!foundExperience){
+          throw new Error('Experience not found')
+        }
+        return foundExperience;
       }
+
+      // resolve(parent, args){
+      //   //return _.find(experiences, {id: args.id})
+      //   return Experience.findById(args.id);
+      // }
     },
     organizations:{
       type: new GraphQLList(OrganizationType),
-      resolve(parent, args){
-        //return companies
-        return Organization.find({})
+      resolve: async(parent, args) => {
+        const foundOrganizations = await Organization.find({});
+        if (!foundOrganizations){
+          throw new Error('Organizations not found')
+        }
+        return foundOrganizations;
       }
+
+      // resolve(parent, args){
+      //   //return companies
+      //   return Organization.find({})
+      // }
     },
     experiences:{
       type: new GraphQLList(ExperienceType),
-      resolve(parent, args){
-        //return experiences
-        return Experience.find({})
+      resolve: async(parent, args) => {
+        const foundExperiences = await Experience.find({});
+        if (!foundExperiences){
+          throw new Error('Experiences not found')
+        }
+        return foundExperiences;
       }
+
+      // resolve(parent, args){
+      //   //return experiences
+      //   return Experience.find({})
+      // }
     },
     experienceByCategory: {
       type: new GraphQLList(ExperienceType),
       args: {category: {type: GraphQLString}},
-      resolve(parent, args){
-        return Experience.find({category: args.category})
+      resolve: async(parent, args) => {
+        const foundExperience = await Experience.find({category: args.category});
+        if (!foundExperience){
+          throw new Error('Experience by the category not found')
+        }
+        return foundExperience;
       }
-    }
-    // experiencesByCategories: {
-    //   type: new GraphQLList(ExperienceType),
-    //   args: {categories: {type: GraphQLList(GraphQLString)}},
-    //   resolve(parent, args){
-    //     let results = []
-    //     args.categories.forEach(c=>{
-    //       console.log(c)
-    //       return Experience.find({category: c})
-    //     })
+
+      // resolve(parent, args){
+      //   return Experience.find({category: args.category})
       // }
-    //}
+    }
   }
 })
 
