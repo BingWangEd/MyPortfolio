@@ -23,7 +23,9 @@ app.use('/graphql', bodyParser.json(), graphqlHTTP({
 
 app.withCredentials = true;
 
-const port = process.env.PORT;
+app.use('/', (req, res) => res.send("Welcome to read my profile"));
+
+const port = process.env.PORT || 4000;
 app.listen(port, ()=>{
   console.log(`Now listening requests on port:${port}`);
 })
