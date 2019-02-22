@@ -15,7 +15,8 @@ import {ApolloProvider} from 'react-apollo';
 let graphqlUri = null
 
 if(process.env.NODE_ENV === 'production') {
-    graphqlUri = 'https://bingwangprofile.herokuapp.com//graphql'
+    graphqlUri = 'https://bingwangprofile.herokuapp.com/graphql';
+    console.log(graphqlUri)
 } else {
     graphqlUri = 'http://localhost:4000/graphql'
 }
@@ -25,8 +26,6 @@ const client = new ApolloClient({
 })
 
 export const initialState = {
-  selectedExperienceCategory: [],
-  experiences: [],
   funMode: false
 }
 

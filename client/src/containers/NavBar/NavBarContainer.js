@@ -16,15 +16,17 @@ class NavBarContainer extends Component {
     let experienceData = this.props.getAllExperiencesQuery;
 
     if (!data.loading){
+
       categories = data.experiences[0].allCategories
     }
 
     if (!ifLoaded && !experienceData.loading){
+      console.log('in component:' + experienceData)
       this.props.selectAllExperienceCategories(categories, experienceData.experiences)
       ifLoaded = true
     }
 
-    if (!data.loading && !experienceData.loading){
+    if (!data.loading && !experienceData.loading && this.props.selectedExperienceCategory && this.props.experiences){
       dataIsLoading = false;
     }
     return (

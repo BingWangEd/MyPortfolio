@@ -6,7 +6,7 @@ class TimelineContainer extends Component {
   render(){
     return (
         <div>
-          {this.props.experiences.map((experience, index)=>{
+          {this.props.experiences && this.props.experiences.map((experience, index)=>{
             return (<ExperienceItem 
               key={index}
               experience={experience}
