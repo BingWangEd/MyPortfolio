@@ -12,8 +12,16 @@ import { BrowserRouter as Router} from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo';
 
+let graphqlUri = null
+
+if(process.env.NODE_ENV === 'production') {
+    graphqlUri = 'https://bingwangprofile.herokuapp.com//graphql'
+} else {
+    graphqlUri = 'http://localhost:4000/graphql'
+}
+
 const client = new ApolloClient({
-  uri: 'https://bingwangprofile.herokuapp.com/graphql'
+  uri: graphqlUri
 })
 
 export const initialState = {

@@ -79,11 +79,13 @@ class NavBar extends Component {
     }
 
     let slideButton = menuOpen ? 
-      (<div onClick={()=>{closeMenu()}}><img 
+      (<img 
+        onClick={()=>{closeMenu()}}
         style={[styles.slideIconLeft]}
         src = {process.env.PUBLIC_URL+ 'icons/slide_left.png'}
-        alt='slide left'/></div>) : 
-      (<div style={[styles.bounceEffect, styles.slideIcon]} onClick={()=>{openMenu()}}><img 
+        alt='slide left'/>) : 
+      (<div style={[styles.bounceEffect, styles.slideIcon]} ><img 
+        onClick={()=>{openMenu()}}
         style={[styles.slideIcon]}
         src = {process.env.PUBLIC_URL+ 'icons/slide_right.png'}
         alt='slide right'/></div>)
@@ -96,7 +98,7 @@ class NavBar extends Component {
     } else {
       return (
         <div style={[styles.wrapper, { marginLeft: menuOpen ? 0 : '-285px'}]}>
-          {slideButton}
+          <div style={[{position: 'relative'}]}>{slideButton}</div>
           <ExperienceButton 
             categories = {this.props.categories}
             selectAllExperienceCategories = {this.props.selectAllExperienceCategories}
@@ -106,7 +108,6 @@ class NavBar extends Component {
           />
           <div style={[styles.subexperience]}>
           {this.props.categories.map((category, index)=>{
-            
               return (
                 <NavBarItem 
                   key={index} 

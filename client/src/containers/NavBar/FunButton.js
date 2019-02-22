@@ -9,7 +9,8 @@ class FunButton extends Component {
         width: '35px'
       },
       textParent: {
-        position: 'relative'
+        position: 'relative',
+        zIndex: '10'
       },
       text: {
         display: 'inline',

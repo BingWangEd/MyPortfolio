@@ -4,7 +4,8 @@ import NavSelectButton from './NavSelectButton';
 
 const styles = {
   textParent: {
-    position: 'relative'
+    position: 'relative',
+    zIndex: '10'
   },
   text: {
     display: 'inline',
