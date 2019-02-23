@@ -42,7 +42,6 @@ class NavBar extends Component {
         padding: '35px',
         display: 'inline-block',
         float: 'left',
-        
         '@media screen and (max-width: 900px)': {
           background: menuOpen ? 'rgba(50, 50, 50, 0.6)' : null
         }
@@ -65,6 +64,9 @@ class NavBar extends Component {
         position: 'absolute',
         right: 0,
         zIndex: '20'
+      },
+      dataLoading: {
+        display: 'none'
       }
     }
 
@@ -92,8 +94,8 @@ class NavBar extends Component {
 
     if (this.props.dataIsLoading) {
       return (
-        <div style={[styles.center]}>
-          <div>Data Is Loading ...</div>
+        <div style={[styles.dataLoading]}>
+          Data Is Loading ...
         </div>)
     } else {
       return (

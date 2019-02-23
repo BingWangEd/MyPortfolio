@@ -5,28 +5,26 @@ import {getCategoriesQuery, getAllExperiencesQuery} from '../../queries/queries'
 import {selectExperienceCategory, unselectExperienceCategory, selectAllExperienceCategories, unselectAllExperienceCategories, selectFunMode, unselectFunMode} from '../../actions/index';
 import NavBar from './NavBar';
 
-let ifLoaded = false
+let ifFirstTimeLoaded = false
 
 class NavBarContainer extends Component {
 
   render(){
-    let data = this.props.getCategoriesQuery;
+    let categoryData = this.props.getCategoriesQuery;
+    let experienceData = this.props.getAllExperiencesQuery;
     let categories = null;
     let dataIsLoading = true;
-    let experienceData = this.props.getAllExperiencesQuery;
-
-    if (!data.loading){
-
-      categories = data.experiences[0].allCategories
+    
+    if (!categoryData.loading){
+      categories = categoryData.experiences[0].allCategories
     }
 
-    if (!ifLoaded && !experienceData.loading){
-      console.log('in component:' + experienceData)
-      this.props.selectAllExperienceCategories(categories, experienceData.experiences)
-      ifLoaded = true
+    if (!ifFirstTimeLoaded && !experienceData.loading && !categoryData.loading){
+      this.props.selectAllExperienceCategories(categoryData.experiences[0].allCategories, experienceData.experiences)
+      ifFirstTimeLoaded = true
     }
 
-    if (!data.loading && !experienceData.loading && this.props.selectedExperienceCategory && this.props.experiences){
+    if (!categoryData.loading && !experienceData.loading && this.props.selectedExperienceCategory && this.props.experiences){
       dataIsLoading = false;
     }
     return (

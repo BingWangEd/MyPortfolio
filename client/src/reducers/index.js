@@ -65,7 +65,6 @@ let reducer = function (state, action){
          experiences: []
       })
     case 'SELECT_ALL_EXPERIENCE_CATEGORIES':
-      //console.log(action.experiences)
       return Object.assign({}, state, {
          selectedExperienceCategory: action.experienceCategories,
          experiences: action.experiences.sort(compareExperiencesDates)
