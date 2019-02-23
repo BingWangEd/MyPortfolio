@@ -31,11 +31,19 @@ const styles = {
     color: 'white'
   },
   category: {
-    fontSize: '550%',
     position: 'absolute',
     opacity: '0.1',
-    bottom: '-150px',
-    left: 0
+    fontSize: '200%',
+    bottom: '-52px',
+    left: 0,
+    '@media screen and (min-width: 800px)': {
+      fontSize: '550%',
+      bottom: '-150px'
+    },
+    '@media screen and (min-width: 550px)': {
+      fontSize: '400%',
+      bottom: '-110px',
+    }
   },
   link: {
     // textDecoration: 'underline solid #FF634D',

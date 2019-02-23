@@ -1,6 +1,6 @@
 html {
   height: 100vh;
-  /*overflow: hidden;*/
+  width: 100%;
 }
 
 body { 
@@ -9,6 +9,7 @@ body {
   perspective: 1px;
   transform-style: preserve-3d;
   height: 100%;
+  width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
   font-family: Nunito;
